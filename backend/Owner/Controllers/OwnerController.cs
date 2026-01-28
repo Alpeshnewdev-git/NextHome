@@ -202,6 +202,54 @@ namespace Owner.Controllers
         }
 
 
+        [HttpGet("state")]
+        public IEnumerable<StateDTO> GetState()
+        {
+            using var db = new NexthomeContext();
+            var states = db.States
+                           .Select(s => new StateDTO
+                           {
+                               Sid = s.Sid,
+                               Sname = s.Sname
+                           })
+                           .ToList();
+
+            return states;
+        }
+
+        [HttpGet("cities")]
+        public IEnumerable<CityDTO> GetCities()
+        {
+            using var db = new NexthomeContext();
+
+            return db.Cities
+                     .Select(c => new CityDTO
+                     {
+                         CityId = c.CityId,
+                         CityName = c.CityName,
+                         Sid = c.Sid
+                     })
+                     .ToList();
+        }
+
+        [HttpGet("areas")]
+        public IEnumerable<AreaDTO> GetAreas()
+        {
+            using var db = new NexthomeContext();
+
+            return db.Areas
+                     .Select(a => new AreaDTO
+                     {
+                         AreaId = a.AreaId,
+                         CityId = a.CityId,
+                         AreaName = a.AreaName
+                     })
+                     .ToList();
+        }
+
+
+
+
     }
 
 }
